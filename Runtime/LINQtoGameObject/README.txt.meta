@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 965993468cb53de45b9728d865b0046f
+timeCreated: 1425957695
+licenseType: Store
+TextScriptImporter:
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 24256
+  packageName: LINQ to GameObject
+  packageVersion: 2.3.1
+  assetPath: Assets/LINQtoGameObject/README.txt
+  uploadId: 222355

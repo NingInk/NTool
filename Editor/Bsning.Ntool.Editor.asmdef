@@ -1,0 +1,19 @@
+{
+    "name": "Bsning.Ntool.Editor",
+    "rootNamespace": "NTool",
+    "references": [
+        "Bsning.Ntool",
+        "Unity.TextMeshPro"
+    ],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

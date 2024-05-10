@@ -1,0 +1,19 @@
+fileFormatVersion: 2
+guid: f36e1f2317607354e9f410c9f3e7778b
+timeCreated: 1425957693
+licenseType: Store
+MonoImporter:
+  serializedVersion: 2
+  defaultReferences: []
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 24256
+  packageName: LINQ to GameObject
+  packageVersion: 2.3.1
+  assetPath: Assets/LINQtoGameObject/Scripts/GameObjectExtensions.Traverse.cs
+  uploadId: 222355
