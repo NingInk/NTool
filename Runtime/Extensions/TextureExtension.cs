@@ -81,5 +81,40 @@ namespace NTool.Extensions
             croppedTexture.Apply();
             return croppedTexture;
         }
+
+        public static Vector2 Size(this Texture texture)
+        {
+            return new Vector2(texture.width, texture.height);
+        }
+
+        public static Texture2D CaptureCamera(this Camera camera, Rect rect)
+        {
+            var renderTexture = new RenderTexture(Screen.width, Screen.height, 0);
+            camera.targetTexture = renderTexture;
+            camera.Render();
+
+            RenderTexture.active = renderTexture;
+
+            var screenShot = new Texture2D(
+                (int)rect.width,
+                (int)rect.height,
+                TextureFormat.RGB24,
+                false
+            );
+            screenShot.ReadPixels(rect, 0, 0);
+            screenShot.Apply();
+
+            camera.targetTexture = null;
+            RenderTexture.active = null;
+            UnityEngine.Object.Destroy(renderTexture);
+
+            return screenShot;
+        }
+
+        public static Color HtmlStringToColor(this string htmlString)
+        {
+            var parseSucceed = ColorUtility.TryParseHtmlString(htmlString, out var retColor);
+            return parseSucceed ? retColor : Color.black;
+        }
     }
 }

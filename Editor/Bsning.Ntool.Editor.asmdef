@@ -1,6 +1,6 @@
 {
     "name": "Bsning.Ntool.Editor",
-    "rootNamespace": "NTool",
+    "rootNamespace": "Ntool.Editor",
     "references": [
         "Bsning.Ntool",
         "Unity.TextMeshPro"

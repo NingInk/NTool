@@ -11,16 +11,52 @@ namespace NTool.Extensions
         /// </summary>
         /// <param name="target">目标</param>
         /// <returns>全路径</returns>
-        public static string GetPath(this Component target) =>
-            string.Join("/", target.gameObject.AncestorsAndSelf().Reverse().Select(g => g.name));
+        public static string GetPath(this Component target, bool includeSelf = true) =>
+            string.Join(
+                "/",
+                (includeSelf ? target.gameObject.AncestorsAndSelf() : target.gameObject.Ancestors())
+                    .Reverse()
+                    .Select(g => g.name)
+            );
+
+        public static string GetPath(
+            this Component target,
+            Object until,
+            bool includeSelf = true
+        ) =>
+            string.Join(
+                "/",
+                (includeSelf ? target.gameObject.AncestorsAndSelf() : target.gameObject.Ancestors())
+                    .TakeWhile(g => g != until)
+                    .Reverse()
+                    .Select(g => g.name)
+            );
 
         /// <summary>
         /// 获取目标在Hierarchy中的全路径
         /// </summary>
         /// <param name="target">目标</param>
         /// <returns>全路径</returns>
-        public static string GetPath(this GameObject target) =>
-            string.Join("/", target.AncestorsAndSelf().Reverse().Select(g => g.name));
+        public static string GetPath(this GameObject target, bool includeSelf = true) =>
+            string.Join(
+                "/",
+                (includeSelf ? target.AncestorsAndSelf() : target.Ancestors())
+                    .Reverse()
+                    .Select(g => g.name)
+            );
+
+        public static string GetPath(
+            this GameObject target,
+            Object until,
+            bool includeSelf = true
+        ) =>
+            string.Join(
+                "/",
+                (includeSelf ? target.AncestorsAndSelf() : target.Ancestors())
+                    .TakeWhile(g => g != until)
+                    .Reverse()
+                    .Select(g => g.name)
+            );
 
         /// <summary>
         /// 保证目标具有 T[<see cref="Component"/>] 脚本并获取
@@ -43,7 +79,7 @@ namespace NTool.Extensions
         public static T GetOrAddComponent<T>(this GameObject target)
             where T : Component
         {
-            return target.gameObject.GetComponent<T>() ?? target.gameObject.AddComponent<T>();
+            return target.GetComponent<T>() ?? target.AddComponent<T>();
         }
 
         /// <summary>

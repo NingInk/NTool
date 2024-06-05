@@ -1,5 +1,5 @@
-﻿using System.Linq;
-using Cysharp.Threading.Tasks;
+﻿using Cysharp.Threading.Tasks;
+using System.Linq;
 using Unity.Linq;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -295,7 +295,7 @@ namespace NTool.Extensions
         /// 从指定位置开始向下深度遍历所有子对象向上回收
         /// </summary>
         /// <param name="source"></param>
-        public static async UniTask ReBuildBreadth(this RectTransform source)
+        public static async UniTask ReBuildDepth(this RectTransform source)
         {
             var layoutGroups = source
                 .gameObject.DescendantsAndSelf()
@@ -316,7 +316,7 @@ namespace NTool.Extensions
         /// </summary>
         /// <param name="source">开始节点</param>
         /// <param name="maximumDepth">最大深度，负值为无限深</param>
-        public static async UniTask ReBuildDepth(this RectTransform source, int maximumDepth = -1)
+        public static async UniTask ReBuildBreadth(this RectTransform source, int maximumDepth = -1)
         {
             if (maximumDepth > 0)
             {
@@ -332,7 +332,7 @@ namespace NTool.Extensions
             {
                 var tasks = children
                     .OfComponent<RectTransform>()
-                    .Select(r => ReBuildDepth(r, maximumDepth));
+                    .Select(r => ReBuildBreadth(r, maximumDepth));
                 await UniTask.WhenAll(tasks);
             }
 

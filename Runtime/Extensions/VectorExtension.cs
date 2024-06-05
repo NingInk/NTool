@@ -143,67 +143,239 @@ namespace NTool.Extensions
 
         #endregion
 
-        /// <summary>
-        /// 返回三维向量XZ平面的二维坐标
-        /// </summary>
-        /// <param name="vector3"></param>
-        /// <returns>三维向量XZ平面的二维坐标</returns>
+        /// <summary> 降维 </summary>
         public static Vector2 XZ(this Vector3 vector3)
         {
             return new Vector2(vector3.x, vector3.z);
         }
 
-        /// <summary>
-        /// 返回三维向量XY平面的二维坐标
-        /// </summary>
-        /// <param name="vector3"></param>
-        /// <returns>三维向量XY平面的二维坐标</returns>
+        /// <summary> 降维 </summary>
         public static Vector2 XY(this Vector3 vector3)
         {
             return new Vector2(vector3.x, vector3.y);
         }
 
-        /// <summary>
-        /// 返回三维向量YZ平面的二维坐标
-        /// </summary>
-        /// <param name="vector3"></param>
-        /// <returns>三维向量YZ平面的二维坐标</returns>
+        /// <summary> 降维 </summary>
         public static Vector2 YZ(this Vector3 vector3)
         {
             return new Vector2(vector3.y, vector3.z);
         }
 
-        /// <summary>
-        /// 返回添加X轴后的三维向量
-        /// </summary>
-        /// <param name="vector2"></param>
-        /// <param name="x">要添加的X轴的值</param>
-        /// <returns></returns>
+        /// <summary> 增维 </summary>
         public static Vector3 AddX(this Vector2 vector2, float x = 0)
         {
             return new Vector3(x, vector2.x, vector2.y);
         }
 
-        /// <summary>
-        /// 返回添加Y轴后的三维向量
-        /// </summary>
-        /// <param name="vector2"></param>
-        /// <param name="y">要添加的X轴的值</param>
-        /// <returns></returns>
+        /// <summary> 增维 </summary>
         public static Vector3 AddY(this Vector2 vector2, float y = 0)
         {
             return new Vector3(vector2.x, y, vector2.y);
         }
 
-        /// <summary>
-        /// 返回添加Z轴后的三维向量
-        /// </summary>
-        /// <param name="vector2"></param>
-        /// <param name="z">要添加的X轴的值</param>
-        /// <returns></returns>
+        /// <summary> 增维 </summary>
         public static Vector3 AddZ(this Vector2 vector2, float z = 0)
         {
             return new Vector3(vector2.x, vector2.y, z);
         }
+
+        #region QFramework
+
+        /// <summary> 朝向目标的矢量 </summary>
+        public static Vector3 DirectionTo(this Component self, Component to) =>
+            to.transform.position - self.transform.position;
+
+        /// <summary> 朝向目标的矢量 </summary>
+        public static Vector3 DirectionTo(this GameObject self, GameObject to) =>
+            to.transform.position - self.transform.position;
+
+        /// <summary> 朝向目标的矢量 </summary>
+        public static Vector3 DirectionTo(this Component self, GameObject to) =>
+            to.transform.position - self.transform.position;
+
+        /// <summary> 朝向目标的矢量 </summary>
+        public static Vector3 DirectionTo(this GameObject self, Component to) =>
+            to.transform.position - self.transform.position;
+
+        /// <summary> 朝向源的矢量 </summary>
+        public static Vector3 DirectionFrom(this Component self, Component from) =>
+            self.transform.position - from.transform.position;
+
+        /// <summary> 朝向源的矢量 </summary>
+        public static Vector3 DirectionFrom(this GameObject self, GameObject from) =>
+            self.transform.position - from.transform.position;
+
+        /// <summary> 朝向源的矢量 </summary>
+        public static Vector3 DirectionFrom(this GameObject self, Component from) =>
+            self.transform.position - from.transform.position;
+
+        /// <summary> 朝向源的矢量 </summary>
+        public static Vector3 DirectionFrom(this Component self, GameObject from) =>
+            self.transform.position - from.transform.position;
+
+        /// <summary> 朝向目标的单位矢量 </summary>
+        public static Vector3 NormalizedDirectionTo(this Component self, Component to) =>
+            self.DirectionTo(to).normalized;
+
+        /// <summary> 朝向目标的单位矢量 </summary>
+        public static Vector3 NormalizedDirectionTo(this GameObject self, GameObject to) =>
+            self.DirectionTo(to).normalized;
+
+        /// <summary> 朝向目标的单位矢量 </summary>
+        public static Vector3 NormalizedDirectionTo(this Component self, GameObject to) =>
+            self.DirectionTo(to).normalized;
+
+        /// <summary> 朝向目标的单位矢量 </summary>
+        public static Vector3 NormalizedDirectionTo(this GameObject self, Component to) =>
+            self.DirectionTo(to).normalized;
+
+        /// <summary> 朝向源的单位矢量 </summary>
+        public static Vector3 NormalizedDirectionFrom(this Component self, Component from) =>
+            self.DirectionFrom(from).normalized;
+
+        /// <summary> 朝向源的单位矢量 </summary>
+        public static Vector3 NormalizedDirectionFrom(this GameObject self, GameObject from) =>
+            self.DirectionFrom(from).normalized;
+
+        /// <summary> 朝向源的单位矢量 </summary>
+        public static Vector3 NormalizedDirectionFrom(this GameObject self, Component from) =>
+            self.DirectionFrom(from).normalized;
+
+        /// <summary> 朝向源的单位矢量 </summary>
+        public static Vector3 NormalizedDirectionFrom(this Component self, GameObject from) =>
+            self.DirectionFrom(from).normalized;
+
+        /// <summary> 设置维度值 </summary>
+        public static Vector3 X(this Vector3 self, float x)
+        {
+            self.x = x;
+            return self;
+        }
+
+        /// <summary> 设置维度值 </summary>
+        public static Vector3 Y(this Vector3 self, float y)
+        {
+            self.y = y;
+            return self;
+        }
+
+        /// <summary> 设置维度值 </summary>
+        public static Vector3 Z(this Vector3 self, float z)
+        {
+            self.z = z;
+            return self;
+        }
+
+        /// <summary> 设置维度值 </summary>
+        public static Vector2 X(this Vector2 self, float x)
+        {
+            self.x = x;
+            return self;
+        }
+
+        /// <summary> 设置维度值 </summary>
+        public static Vector2 Y(this Vector2 self, float y)
+        {
+            self.y = y;
+            return self;
+        }
+
+        /// <summary> 世界坐标之间的距离 </summary>
+        public static float Distance(this GameObject self, GameObject other)
+        {
+            return Vector3.Distance(self.Position(), other.Position());
+        }
+
+        /// <summary> 世界坐标之间的距离 </summary>
+        public static float Distance(this Component self, GameObject other)
+        {
+            return Vector3.Distance(self.Position(), other.Position());
+        }
+
+        /// <summary> 世界坐标之间的距离 </summary>
+        public static float Distance(this GameObject self, Component other)
+        {
+            return Vector3.Distance(self.Position(), other.Position());
+        }
+
+        /// <summary> 世界坐标之间的距离 </summary>
+        public static float Distance(this Component self, Component other)
+        {
+            return Vector3.Distance(self.Position(), other.Position());
+        }
+
+        /// <summary> 世界坐标之间的2D距离 </summary>
+        public static float Distance2D(this GameObject self, GameObject other)
+        {
+            return Vector2.Distance(self.Position2D(), other.Position2D());
+        }
+
+        /// <summary> 世界坐标之间的2D距离 </summary>
+        public static float Distance2D(this Component self, GameObject other)
+        {
+            return Vector2.Distance(self.Position2D(), other.Position2D());
+        }
+
+        /// <summary> 世界坐标之间的2D距离 </summary>
+        public static float Distance2D(this GameObject self, Component other)
+        {
+            return Vector2.Distance(self.Position2D(), other.Position2D());
+        }
+
+        /// <summary> 世界坐标之间的2D距离 </summary>
+        public static float Distance2D(this Component self, Component other)
+        {
+            return Vector2.Distance(self.Position2D(), other.Position2D());
+        }
+
+        /// <summary> 局部坐标之间的距离 </summary>
+        public static float LocalDistance(this GameObject self, GameObject other)
+        {
+            return Vector3.Distance(self.LocalPosition(), other.LocalPosition());
+        }
+
+        /// <summary> 局部坐标之间的距离 </summary>
+        public static float LocalDistance(this Component self, GameObject other)
+        {
+            return Vector3.Distance(self.LocalPosition(), other.LocalPosition());
+        }
+
+        /// <summary> 局部坐标之间的距离 </summary>
+        public static float LocalDistance(this GameObject self, Component other)
+        {
+            return Vector3.Distance(self.LocalPosition(), other.LocalPosition());
+        }
+
+        /// <summary> 局部坐标之间的距离 </summary>
+        public static float LocalDistance(this Component self, Component other)
+        {
+            return Vector3.Distance(self.LocalPosition(), other.LocalPosition());
+        }
+
+        /// <summary> 局部坐标之间的2D距离 </summary>
+        public static float LocalDistance2D(this GameObject self, GameObject other)
+        {
+            return Vector2.Distance(self.LocalPosition2D(), other.LocalPosition2D());
+        }
+
+        /// <summary> 局部坐标之间的2D距离 </summary>
+        public static float LocalDistance2D(this Component self, GameObject other)
+        {
+            return Vector2.Distance(self.LocalPosition2D(), other.LocalPosition2D());
+        }
+
+        /// <summary> 局部坐标之间的2D距离 </summary>
+        public static float LocalDistance2D(this GameObject self, Component other)
+        {
+            return Vector2.Distance(self.LocalPosition2D(), other.LocalPosition2D());
+        }
+
+        /// <summary> 局部坐标之间的2D距离 </summary>
+        public static float LocalDistance2D(this Component self, Component other)
+        {
+            return Vector2.Distance(self.LocalPosition2D(), other.LocalPosition2D());
+        }
+
+        #endregion
     }
 }
