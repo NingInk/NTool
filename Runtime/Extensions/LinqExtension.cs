@@ -11,12 +11,6 @@ namespace NTool.Extensions
             return args[UnityEngine.Random.Range(0, args.Length)];
         }
 
-        /// <summary>
-        /// 从集合中随机获取一个元素
-        /// </summary>
-        /// <param name="enumerable">集合</param>
-        /// <typeparam name="T">集合的类型</typeparam>
-        /// <returns>获取的元素</returns>
         public static T GetRandomItem<T>(this IEnumerable<T> enumerable)
         {
             var array = enumerable as T[] ?? enumerable.ToArray();

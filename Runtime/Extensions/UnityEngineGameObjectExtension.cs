@@ -10,24 +10,10 @@ namespace NTool.Extensions
             return selfObj;
         }
 
-        public static T Show<T>(this T selfComponent)
-            where T : Component
-        {
-            selfComponent.gameObject.Show();
-            return selfComponent;
-        }
-
         public static GameObject Hide(this GameObject selfObj)
         {
             selfObj.SetActive(false);
             return selfObj;
-        }
-
-        public static T Hide<T>(this T selfComponent)
-            where T : Component
-        {
-            selfComponent.gameObject.Hide();
-            return selfComponent;
         }
 
         public static void DestroyGameObj<T>(this T selfBehaviour)

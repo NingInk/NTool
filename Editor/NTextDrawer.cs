@@ -1,4 +1,5 @@
-﻿#if ODIN_INSPECTOR
+﻿#if UNITY_EDITOR
+#if ODIN_INSPECTOR
 using Sirenix.OdinInspector.Editor;
 using Sirenix.Utilities.Editor;
 #else
@@ -14,7 +15,7 @@ namespace NTool.Editor
     {
         protected override void DrawPropertyLayout(GUIContent label)
         {
-            if (ValueEntry.SmartValue.Text == null && ValueEntry.SmartValue.TMPText == null)
+            if (ValueEntry.SmartValue.text == null && ValueEntry.SmartValue.tmpText == null)
             {
                 SirenixEditorGUI.BeginBox(label);
                 ValueEntry.Property.Children["Text"].Draw();
@@ -46,8 +47,8 @@ namespace NTool.Editor
             GUIContent label
         )
         {
-            _text ??= property.FindPropertyRelative("Text");
-            _tmpText ??= property.FindPropertyRelative("TMPText");
+            _text ??= property.FindPropertyRelative(nameof(NText.text));
+            _tmpText ??= property.FindPropertyRelative(nameof(NText.tmpText));
             if (
                 _fold
                 && _text?.objectReferenceValue == null
@@ -63,8 +64,8 @@ namespace NTool.Editor
             GUIContent label
         )
         {
-            _text ??= property.FindPropertyRelative("Text");
-            _tmpText ??= property.FindPropertyRelative("TMPText");
+            _text ??= property.FindPropertyRelative(nameof(NText.text));
+            _tmpText ??= property.FindPropertyRelative(nameof(NText.tmpText));
             EditorGUI.BeginProperty(position, label, property);
             {
                 var rect = new Rect(position) { height = 18, };
@@ -110,3 +111,4 @@ namespace NTool.Editor
 #endif
 #endif
 }
+#endif

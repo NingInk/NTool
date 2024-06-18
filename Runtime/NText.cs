@@ -5,30 +5,29 @@ using UnityEngine.UI;
 
 namespace NTool
 {
-
     [Serializable]
     public struct NText
     {
-        public Text Text;
-        public TMP_Text TMPText;
+        [SerializeField] internal Text text;
+        [SerializeField] internal TMP_Text tmpText;
 
-        public string text
+        public string Text
         {
             get =>
-                Text
-                    ? Text.text
-                    : TMPText
-                        ? TMPText.text
+                text
+                    ? text.text
+                    : tmpText
+                        ? tmpText.text
                         : null;
             set
             {
-                if (Text)
-                    Text.text = value;
-                if (TMPText)
-                    TMPText.text = value;
+                if (text)
+                    text.text = value;
+                if (tmpText)
+                    tmpText.text = value;
             }
         }
 
-        public Graphic Graphic => Text ? Text : TMPText ? TMPText : null;
+        public Graphic Graphic => text ? text : tmpText ? tmpText : null;
     }
 }

@@ -41,7 +41,7 @@ namespace NTool.Extensions
         /// </summary>
         /// <param name="source"></param>
         /// <returns>byte[]</returns>
-        public static Texture2D DeCompress(Texture source)
+        public static Texture2D DeCompress(this Texture source)
         {
             if (source == null)
             {

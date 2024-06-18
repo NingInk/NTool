@@ -6,6 +6,24 @@ namespace NTool.Extensions
 {
     public static class ComponentExtension
     {
+        public static T SetEnable<T>(this T component, bool enable)
+            where T : Component
+        {
+            switch (component)
+            {
+                case UnityEngine.Behaviour b:
+                    b.enabled = enable;
+                    break;
+                case Collider collider:
+                    collider.enabled = enable;
+                    break;
+                default:
+                    Debug.LogWarning($"{component} 不是指定类型，不可以设置Enabled", component);
+                    break;
+            }
+            return component;
+        }
+
         /// <summary>
         /// 获取目标在Hierarchy中的全路径
         /// </summary>
@@ -88,7 +106,7 @@ namespace NTool.Extensions
         /// <typeparam name="T">组件[<see cref="Component"/>]</typeparam>
         /// <param name="target">目标对象</param>
         /// <param name="immediate">立即执行</param>
-        public static void RemoveComponent<T>(this GameObject target, bool immediate = false)
+        public static GameObject RemoveComponent<T>(this GameObject target, bool immediate = false)
             where T : Component
         {
             if (target.TryGetComponent<T>(out var component))
@@ -102,6 +120,7 @@ namespace NTool.Extensions
                     Object.DestroyImmediate(component);
                 }
             }
+            return target;
         }
     }
 }

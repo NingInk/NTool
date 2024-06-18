@@ -1,13 +1,14 @@
-using NTool.Extensions;
 using System;
 using System.Linq;
+using System.Reflection;
+using NTool.Extensions;
 using UnityEditor;
 using UnityEditorInternal;
 using UnityEngine;
 
-namespace NTool
+namespace NTool.Editor
 {
-    public class InportDoTween
+    public static class ImportDoTween
     {
         [InitializeOnLoadMethod]
         static void Check()
@@ -20,13 +21,14 @@ namespace NTool
                 var dotweens = AppDomain
                     .CurrentDomain.GetAssemblies()
                     .Where(t => t.GetName().Name.ToLower().StartsWith("dotween"));
-                if (dotweens.Any())
+                var assemblies = dotweens as Assembly[] ?? dotweens.ToArray();
+                if (assemblies.Any())
                 {
                     AssetDatabase.ImportPackage(
-                        "Packages/com.bsning.ntool/DoTween.Moudle.unitypackage",
+                        "Packages/com.bsning.ntool/DoTween.Module.unitypackage",
                         true
                     );
-                    dotweens.Select(t => t.GetName().Name).ForEach(Debug.Log);
+                    assemblies.Select(t => t.GetName().Name).ForEach(Debug.Log);
                 }
             }
         }
