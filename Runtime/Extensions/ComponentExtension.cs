@@ -11,7 +11,7 @@ namespace NTool.Extensions
         {
             switch (component)
             {
-                case UnityEngine.Behaviour b:
+                case Behaviour b:
                     b.enabled = enable;
                     break;
                 case Collider collider:
@@ -21,6 +21,7 @@ namespace NTool.Extensions
                     Debug.LogWarning($"{component} 不是指定类型，不可以设置Enabled", component);
                     break;
             }
+
             return component;
         }
 
@@ -28,52 +29,54 @@ namespace NTool.Extensions
         /// 获取目标在Hierarchy中的全路径
         /// </summary>
         /// <param name="target">目标</param>
+        /// <param name="includeSelf">包含自己</param>
         /// <returns>全路径</returns>
         public static string GetPath(this Component target, bool includeSelf = true) =>
             string.Join(
                 "/",
                 (includeSelf ? target.gameObject.AncestorsAndSelf() : target.gameObject.Ancestors())
-                    .Reverse()
-                    .Select(g => g.name)
+                .Reverse()
+                .Select(g => g.name)
             );
 
         public static string GetPath(
             this Component target,
-            Object until,
-            bool includeSelf = true
+            Object         until,
+            bool           includeSelf = true
         ) =>
             string.Join(
                 "/",
                 (includeSelf ? target.gameObject.AncestorsAndSelf() : target.gameObject.Ancestors())
-                    .TakeWhile(g => g != until)
-                    .Reverse()
-                    .Select(g => g.name)
+                .TakeWhile(g => g != until)
+                .Reverse()
+                .Select(g => g.name)
             );
 
         /// <summary>
         /// 获取目标在Hierarchy中的全路径
         /// </summary>
         /// <param name="target">目标</param>
+        /// <param name="includeSelf">包含自己</param>
         /// <returns>全路径</returns>
         public static string GetPath(this GameObject target, bool includeSelf = true) =>
             string.Join(
                 "/",
                 (includeSelf ? target.AncestorsAndSelf() : target.Ancestors())
-                    .Reverse()
-                    .Select(g => g.name)
+                .Reverse()
+                .Select(g => g.name)
             );
 
         public static string GetPath(
             this GameObject target,
-            Object until,
-            bool includeSelf = true
+            Object          until,
+            bool            includeSelf = true
         ) =>
             string.Join(
                 "/",
                 (includeSelf ? target.AncestorsAndSelf() : target.Ancestors())
-                    .TakeWhile(g => g != until)
-                    .Reverse()
-                    .Select(g => g.name)
+                .TakeWhile(g => g != until)
+                .Reverse()
+                .Select(g => g.name)
             );
 
         /// <summary>
@@ -120,6 +123,7 @@ namespace NTool.Extensions
                     Object.DestroyImmediate(component);
                 }
             }
+
             return target;
         }
     }

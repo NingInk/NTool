@@ -14,71 +14,67 @@ namespace NTool.Extensions
         public static T GetRandomItem<T>(this IEnumerable<T> enumerable)
         {
             var array = enumerable as T[] ?? enumerable.ToArray();
-            return array.ElementAt(new System.Random().Next(0, array.Length));
+            return array.ElementAt(new Random().Next(0, array.Length));
         }
 
         public static T GetAndRemoveRandomItem<T>(this List<T> list)
         {
             var randomIndex = UnityEngine.Random.Range(0, list.Count);
-            var randomItem = list[randomIndex];
+            var randomItem  = list[randomIndex];
             list.RemoveAt(randomIndex);
             return randomItem;
         }
 
         public static IEnumerable<T> Random<T>(this IEnumerable<T> self) =>
-            self.OrderBy(x => new System.Guid());
+            self.OrderBy(_ => Guid.NewGuid());
 
         public static IEnumerable<T> Random<T>(this IEnumerable<T> self, int count)
         {
-            var rs = Enumerable.Range(0, count).Random();
-            foreach (var r in rs)
-            {
-                yield return self.ElementAt(r);
-            }
+            var list    = self.ToList(); // 缓存，避免多次枚举
+            var indices = Enumerable.Range(0, list.Count).OrderBy(_ => Guid.NewGuid()).Take(count);
+            foreach (var i in indices)
+                yield return list[i];
         }
 
         public static IEnumerable<T> ForEach<T>(this IEnumerable<T> self, Action<T> action)
         {
-            if (self.IsNotNullAndEmpty())
+            var items = self as T[] ?? self.ToArray();
+            if (items.IsNullOrEmpty()) return items;
+            foreach (var item in items)
             {
-                foreach (var item in self)
-                {
-                    action(item);
-                }
+                action(item);
             }
 
-            return self;
+            return items;
         }
 
         public static IEnumerable<T> ForEachReverse<T>(this IEnumerable<T> self, Action<T> action)
         {
-            if (self.IsNotNullAndEmpty())
+            var array = self as T[] ?? self.ToArray();
+            if (array.IsNullOrEmpty()) return array;
+            foreach (var item in array.Reverse())
             {
-                foreach (var item in self.Reverse())
-                {
-                    action?.Invoke(item);
-                }
+                action?.Invoke(item);
             }
 
-            return self;
+            return array;
         }
 
         public static IEnumerable<T> ForEach<T>(this IEnumerable<T> self, Action<int, T> action)
         {
-            if (self.IsNotNullAndEmpty())
+            var items = self as T[] ?? self.ToArray();
+            if (items.IsNullOrEmpty()) return items;
+            var index = 0;
+            foreach (var item in items)
             {
-                var index = 0;
-                foreach (var item in self)
-                {
-                    action(index, item);
-                    index++;
-                }
+                action(index, item);
+                index++;
             }
 
-            return self;
+            return items;
         }
 
-        public static void ForEach<K, V>(this Dictionary<K, V> dict, Action<K, V> action)
+        public static void ForEach<TK, TV>(this Dictionary<TK, TV> dict, Action<TK, TV> action)
         {
             using var dictE = dict.GetEnumerator();
 
@@ -90,20 +86,22 @@ namespace NTool.Extensions
         }
 
         public static Dictionary<TKey, TValue> Merge<TKey, TValue>(
-            this Dictionary<TKey, TValue> dictionary,
+            this   Dictionary<TKey, TValue>   dictionary,
             params Dictionary<TKey, TValue>[] dictionaries
         )
         {
-            return dictionaries.Aggregate(
-                dictionary,
-                (current, dict) => current.Union(dict).ToDictionary(kv => kv.Key, kv => kv.Value)
-            );
+            return new[] { dictionary }
+                   .Concat(dictionaries)
+                   .SelectMany(d => d)                             // 平铺所有 kv
+                   .GroupBy(kv => kv.Key)                          // 按 key 分组
+                   .ToDictionary(g => g.Key, g => g.Last().Value); // 使用最后一个（即最后出现的字典）作为值
         }
 
-        public static void AddRange<K, V>(
-            this Dictionary<K, V> dict,
-            Dictionary<K, V> addInDict,
-            bool isOverride = false
+
+        public static void AddRange<TK, TV>(
+            this Dictionary<TK, TV> dict,
+            Dictionary<TK, TV>      addInDict,
+            bool                  isOverride = false
         )
         {
             using var enumerator = addInDict.GetEnumerator();

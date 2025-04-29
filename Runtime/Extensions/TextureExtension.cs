@@ -106,7 +106,7 @@ namespace NTool.Extensions
 
             camera.targetTexture = null;
             RenderTexture.active = null;
-            UnityEngine.Object.Destroy(renderTexture);
+            Object.Destroy(renderTexture);
 
             return screenShot;
         }

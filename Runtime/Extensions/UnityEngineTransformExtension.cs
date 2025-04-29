@@ -25,7 +25,7 @@ namespace NTool.Extensions
             return self;
         }
 
-        public static GameObject AsRootGameObject<T>(this GameObject self)
+        public static GameObject AsRootGameObject(this GameObject self)
         {
             self.transform.SetParent(null);
             return self;
@@ -766,8 +766,7 @@ namespace NTool.Extensions
             return self.Position(from.Position());
         }
 
-        public static GameObject SyncPositionFrom<T>(this GameObject self, Component from)
-            where T : Component
+        public static GameObject SyncPositionFrom(this GameObject self, Component from)
         {
             return self.Position(from.Position());
         }

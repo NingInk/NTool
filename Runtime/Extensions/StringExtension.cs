@@ -14,7 +14,7 @@ namespace NTool.Extensions
             return source
                 + new string(
                     c,
-                    number - System.Text.Encoding.GetEncoding("gb2312").GetBytes(source).Length
+                    number - Encoding.GetEncoding("gb2312").GetBytes(source).Length
                 );
         }
 
@@ -22,7 +22,7 @@ namespace NTool.Extensions
         {
             return new string(
                     c,
-                    number - System.Text.Encoding.GetEncoding("gb2312").GetBytes(source).Length
+                    number - Encoding.GetEncoding("gb2312").GetBytes(source).Length
                 ) + source;
         }
 
@@ -133,12 +133,12 @@ namespace NTool.Extensions
         /// <summary>
         /// 缓存
         /// </summary>
-        private static readonly char[] mCachedSplitCharArray = { '.' };
+        private static readonly char[] MCachedSplitCharArray = { '.' };
 
         public static string[] Split(this string selfStr, char splitSymbol)
         {
-            mCachedSplitCharArray[0] = splitSymbol;
-            return selfStr.Split(mCachedSplitCharArray);
+            MCachedSplitCharArray[0] = splitSymbol;
+            return selfStr.Split(MCachedSplitCharArray);
         }
 
         public static string FillFormat(this string selfStr, params object[] args)
